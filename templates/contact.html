@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - WanderWise AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5a67d8;
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.1);
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 4px solid #38a169;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: #5a67d8;
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #718096;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            opacity: 0.8;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links a {
+                margin: 0 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-envelope"></i> Contact WanderWise AI</h1>
+            <p>We'd love to hear from you! Send us a message and we'll get back to you soon.</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> Home</a>
+            <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+
+        {% if success %}
+        <div class="success-message">
+            <i class="fas fa-check-circle"></i>
+            Thank you for your message! We'll get back to you within 24 hours.
+        </div>
+        {% endif %}
+
+        <div class="contact-form">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">
+                        <i class="fas fa-tag"></i> Subject
+                    </label>
+                    <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">
+                        <i class="fas fa-comment"></i> Message
+                    </label>
+                    <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p>support@wanderwise.ai</p>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Response Time</h3>
+                <p>Within 24 hours</p>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-globe"></i>
+                <h3>Available</h3>
+                <p>24/7 Online</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 WanderWise AI. Your AI-powered travel companion.</p>
+    </div>
+</body>
+</html>
