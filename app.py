@@ -20,7 +20,14 @@ except ImportError:
     print("To enable PDF export, install reportlab: pip install reportlab==4.0.4")
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'
+app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-here-change-in-production')
+
+# Production configuration for Render
+if os.environ.get('RENDER'):
+    app.config['DEBUG'] = False
+    app.config['TESTING'] = False
+else:
+    app.config['DEBUG'] = True
 
 # Mock AI Travel Data (In real app, this would be connected to OpenAI/Gemini API)
 DESTINATIONS_DATA = {
@@ -74,6 +81,16 @@ generated_itineraries = {}
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/health')
+def health_check():
+    """Health check endpoint for Render"""
+    return jsonify({
+        'status': 'healthy',
+        'service': 'WanderWise AI',
+        'port': os.environ.get('PORT', 5000),
+        'environment': 'production' if os.environ.get('RENDER') else 'development'
+    })
 
 @app.route('/generate-itinerary', methods=['POST'])
 def generate_itinerary():
@@ -368,4 +385,9 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get port from environment variable for deployment (Render requirement)
+    port = int(os.environ.get('PORT', 5000))
+    print(f"Starting WanderWise AI on host 0.0.0.0 and port {port}")
+    
+    # Render requires binding to 0.0.0.0
+    app.run(host='0.0.0.0', port=port, debug=False)
